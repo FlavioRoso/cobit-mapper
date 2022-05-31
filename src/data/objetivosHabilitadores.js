@@ -35,5 +35,5 @@ export const objetivosHabilitadores = {
     "DSS06": "Gerenciar os Controles de Processos de Negócio",
     "MEA01": "Monitorar, Avaliar e Analisar o Desempenho e Conformidade",
     "MEA02": "Monitorar, Avaliar e Analisar o Sistema de Controle Interno",
-    "MEA03": "Monitorar, Avaliar e Analisar a Conformidade com Requisitos Externos
+    "MEA03": "Monitorar, Avaliar e Analisar a Conformidade com Requisitos Externos"
 };

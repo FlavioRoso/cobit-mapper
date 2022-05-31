@@ -32,9 +32,16 @@ export const objetivosCorporativos = {
         "descricao": "Respostas rápidas para um ambiente de negócios em mudança",
         "objetivosTi": [1, 7, 9, 17]
     },
+
+
     9: {
         "descricao": "Tomada de decisão estratégica baseada na informação",
         "objetivosTi": [1, 14]
+    },
+
+    10: {
+        "descricao": "Otimização dos custos de prestação de serviços",
+        "objetivosTi": [4, 6, 11]
     },
     11: {
         "descricao": "Otimização da funcionalidade do processo de negócio",

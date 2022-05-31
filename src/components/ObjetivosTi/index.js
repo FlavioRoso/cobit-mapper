@@ -1,67 +1,73 @@
-import React,{ useState, useEffect } from 'react';
+import React, {useContext, useState, useEffect} from 'react';
+import {ListGroup, Card} from 'react-bootstrap';
 import {objetivosTi} from '../../data/objetivosTi';
-import {Table, Card} from 'react-bootstrap';
-function ObjetivosTi({callbackObjetivosTiSelecionados}) {
+import {objetivosCorporativos} from '../../data/objetivosCorporativos';
+import {ObjetivosContext} from '../../Context/ObjetivosContext';
 
-    const [objetivosSelecionados,setObjetivosSelecionados] = useState([]);
 
-    
-    let iniciarArrayObjetivosSelecionados = () => {
-        Object.entries(objetivosTi).map((objetivo) => {
-            objetivosSelecionados[objetivo[0]] = false;
+function ObjetivosTi() {
+    const [objetivosConfig, setObjetivosConfig] = useContext(ObjetivosContext);
+    const [mostrarGrid, setMostrarGrid] = useState(false);
+    const [objetivosTiSelecionados, setObjetivosTiSelecionados] = useState([]);
+
+    useEffect(() => {
+        let anyObjetivoSelecionado = false;
+        setDataTodosObjetivos(false);
+        objetivosConfig.objetivosCorporativosSelecionados.map((valor, key) => {
+
+            if(valor)
+            {
+                anyObjetivoSelecionado = valor;
+                objetivosCorporativos[key + 1].objetivosTi.map((obti) => {
+                    objetivosTiSelecionados[obti - 1] = true;
+                });
+            }
         })
-        setObjetivosSelecionados([...objetivosSelecionados]);
-    };
+        setMostrarGrid(anyObjetivoSelecionado);
+        objetivosConfig.objetivosTiSelecionados = objetivosTiSelecionados;
+        setObjetivosConfig(Object.assign({},objetivosConfig));
+        setObjetivosTiSelecionados([...objetivosTiSelecionados]);
+        
+    },[objetivosConfig.objetivosCorporativosSelecionados]);
 
-    let alternarTodosObjetivos = (event) => {
+
+    const setDataTodosObjetivos = (valor) => {
         Object.entries(objetivosTi).map((objetivo) => {
-            objetivosSelecionados[objetivo[0]] = event.target.checked;
+            objetivosTiSelecionados[objetivo[0] - 1] = valor;
         })
-        setObjetivosSelecionados([...objetivosSelecionados]);
-
     };
 
-    let alternarObjetivoSelecionado = (key) => {
-        objetivosSelecionados[key] = !objetivosSelecionados[key];
-        setObjetivosSelecionados([...objetivosSelecionados]);
+    const iniciarArrayObjetivosSelecionados = () => {
+        setDataTodosObjetivos(false);
+        setObjetivosTiSelecionados([...objetivosTiSelecionados]);
     };
 
+   
     useEffect(() => {
         iniciarArrayObjetivosSelecionados();
     }, []);
-    // useEffect(() => {
-    //     callbackObjetivosTiSelecionados(objetivosSelecionados);
-    // }, [objetivosSelecionados]);
 
-    return (
-        <Card className='p-3'>
+    if(mostrarGrid) {
+        return (
+            <Card className='p-3  mb-4 mt-4'>
             <h1>Objetivos corporativos</h1>
-            <Table striped bordered hover>
-                <thead>
-                    <tr>
-                    <th><input type="checkbox" onChange={(e) => alternarTodosObjetivos(e)} /></th>
-                    <th>#</th>
-                    <th>Descrição</th>
-
-                    </tr>
-                </thead>
-                <tbody>
-                    {objetivosSelecionados.slice(1).map((ativo,key) => {
-                        key = key + 1;
-                        var descricao = objetivosTi[key]["descricao"];
-                        return (
-                            <tr key={key}>
-                                <th><input type="checkbox" checked={(ativo ? "checked" : "")} onChange={() => alternarObjetivoSelecionado(key)} id={"objetivo" + key} /></th>
-
-                                <td>{key}</td>
-                                <td>{descricao}</td>
-                            </tr>
-                        )
-                    })}
-                </tbody>
-            </Table>
+           <ListGroup>
+           {Object.entries(objetivosTi).map((objetivo,key) => {
+               if(objetivosTiSelecionados[objetivo[0] - 1])
+               return  <ListGroup.Item key={key}>{objetivo[0]} - {objetivo[1].descricao}</ListGroup.Item>
+         
+            })}
+               
+            </ListGroup>
+            
         </Card>
-    );
+        );
+    }
+    else {
+        return <></>;
+    }
+    
+    
 }
 
 export default ObjetivosTi;

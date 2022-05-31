@@ -1,10 +1,19 @@
-import React,{ useState, useEffect} from 'react';
+import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import ObjetivosCorporativos from '../components/ObjetivosCorporativos';
 import ObjetivosTi from '../components/ObjetivosTi';
+import ObjetivosHabilitadores from '../components/ObjetivosHabilitadores';
+import {ObjetivosProvider} from '../Context/ObjetivosContext';
 import {Container} from 'react-bootstrap';
 function Home() {
     return <Container className='p-2'>
-               <ObjetivosTi />
+            <ObjetivosProvider>
+                
+                <ObjetivosCorporativos />
+                <ObjetivosTi />
+                <ObjetivosHabilitadores />
+            </ObjetivosProvider>
+
            </Container> ;
 }
 
