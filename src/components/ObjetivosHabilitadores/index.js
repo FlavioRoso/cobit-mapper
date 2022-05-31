@@ -13,27 +13,33 @@ function ObjetivosHabilitadores() {
 
     useEffect(() => {
         let anyObjetivoSelecionado = false;
-        setDataTodosObjetivos(false);
+
+        const novosObjetivos = [];
+        Object.entries(objetivosHabilitadores).map((objetivo) => {
+            novosObjetivos[objetivo[0]] = false;
+        })
         objetivosConfig.objetivosTiSelecionados.map((valor, key) => {
 
             if(valor)
             {
                 anyObjetivoSelecionado = valor;
                 objetivosTi[key + 1].habilitadores.map((obh) => {
-                    objetivosHabilitadoresSelecionados[obh] = true;
+                    novosObjetivos[obh] = true;
                 });
-            }
+            } 
             
         })
         setMostrarGrid(anyObjetivoSelecionado);
-        setObjetivosHabilitadoreSelecionados(objetivosHabilitadoresSelecionados);
+        setObjetivosHabilitadoreSelecionados(novosObjetivos);
         
-    },[objetivosConfig.objetivosTiSelecionados]);
+    },[objetivosConfig]);
 
     const setDataTodosObjetivos = (valor) => {
+        const novosObjetivos = [];
         Object.entries(objetivosHabilitadores).map((objetivo) => {
-            objetivosHabilitadoresSelecionados[objetivo[0]] = valor;
+            novosObjetivos[objetivo[0]] = valor;
         })
+        setObjetivosHabilitadoreSelecionados(novosObjetivos);
     };
 
     const iniciarArrayObjetivosSelecionados = () => {
@@ -50,6 +56,7 @@ function ObjetivosHabilitadores() {
     }, [objetivosHabilitadoresSelecionados]);
 
     if(mostrarGrid) {
+        console.log(objetivosHabilitadoresSelecionados);
         return (
             <Card className='p-3' >
             <h1>Objetivos Habilitadores</h1>
