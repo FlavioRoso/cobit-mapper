@@ -56,7 +56,6 @@ function ObjetivosHabilitadores() {
     }, [objetivosHabilitadoresSelecionados]);
 
     if(mostrarGrid) {
-        console.log(objetivosHabilitadoresSelecionados);
         return (
             <Card className='p-3' >
             <h1>Objetivos Habilitadores</h1>

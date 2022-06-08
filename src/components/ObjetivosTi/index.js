@@ -50,7 +50,7 @@ function ObjetivosTi() {
     if(mostrarGrid) {
         return (
             <Card className='p-3  mb-4 mt-4'>
-            <h1>Objetivos corporativos</h1>
+            <h1>Objetivos de TI</h1>
            <ListGroup>
            {Object.entries(objetivosTi).map((objetivo,key) => {
                if(objetivosTiSelecionados[objetivo[0] - 1])
